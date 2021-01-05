@@ -1,25 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>avro-examples</groupId>
-  <artifactId>avro-examples</artifactId>
+  <groupId>avro-samples</groupId>
+  <artifactId>avro-samples</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  
-  
-    <properties>
+ 
+  <properties>
         <avro.version>1.8.2</avro.version>
         <kafka.version>0.11.0.1</kafka.version>
         <confluent.version>3.3.1</confluent.version>
-    </properties>
-  
-      <!--necessary to resolve confluent dependencies-->
+  </properties>
+ 
+ <!--necessary to resolve confluent dependencies-->
     <repositories>
         <repository>
             <id>confluent</id>
             <url>http://packages.confluent.io/maven/</url>
         </repository>
     </repositories>
-  
-    <dependencies>
+ 
+ <dependencies>
         <!--Only dependency needed for the avro part-->
         <!-- https://mvnrepository.com/artifact/org.apache.avro/avro -->
         <dependency>
@@ -28,10 +27,23 @@
             <version>${avro.version}</version>
         </dependency>
 
-    </dependencies>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>${kafka.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-avro-serializer</artifactId>
+            <version>${confluent.version}</version>
+        </dependency>
 
-    <build>
+ </dependencies> 
+
+<build>
+
+ <!--  <pluginManagement>  -->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -88,7 +100,9 @@
                 </executions>
             </plugin>
         </plugins>
+        
+ <!--   </pluginManagement>  -->
+ 
     </build>
-  
-  
+ 
 </project>

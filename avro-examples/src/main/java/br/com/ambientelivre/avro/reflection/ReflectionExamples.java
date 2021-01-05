@@ -1,4 +1,4 @@
-package com.github.simplesteph.avro.reflection;
+package br.com.ambientelivre.avro.reflection;
 
 import org.apache.avro.Schema;
 import org.apache.avro.file.CodecFactory;

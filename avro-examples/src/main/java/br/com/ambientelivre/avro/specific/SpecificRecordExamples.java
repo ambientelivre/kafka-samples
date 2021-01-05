@@ -1,4 +1,4 @@
-package com.github.simplesteph.avro.specific;
+package br.com.ambientelivre.avro.specific;
 
 import com.example.Customer;
 import org.apache.avro.file.DataFileReader;

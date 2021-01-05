@@ -1,4 +1,4 @@
-package com.github.simplesteph.avro.evolution;
+package br.com.ambientelivre.avro.evolution;
 
 import com.example.CustomerV1;
 import com.example.CustomerV2;

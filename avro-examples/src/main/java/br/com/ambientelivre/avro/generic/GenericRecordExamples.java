@@ -1,4 +1,4 @@
-package com.github.simplesteph.avro.generic;
+package br.com.ambientelivre.avro.generic;
 
 import org.apache.avro.AvroRuntimeException;
 import org.apache.avro.Schema;
