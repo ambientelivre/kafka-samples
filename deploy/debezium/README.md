@@ -8,6 +8,8 @@ sudo docker run -it --name zookeeper -p 2181:2181 -p 2888:2888 -p 3888:3888 --se
 sudo docker run -it --name kafka -p 9092:9092 --privileged --link zookeeper:zookeeper debezium/kafka
 
 sudo docker run -it --name connect -p 8083:8083 -e GROUP_ID=1 -e CONFIG_STORAGE_TOPIC=my-connect-configs -e OFFSET_STORAGE_TOPIC=my-connect-offsets -e ADVERTISED_HOST_NAME=$(echo $DOCKER_HOST | cut -f3 -d'/' | cut -f1 -d':') --link zookeeper:zookeeper --link postgres:postgres --link kafka:kafka debezium/connect
+
+
 psql -h localhost -p 5000 -U postgres
 
 
