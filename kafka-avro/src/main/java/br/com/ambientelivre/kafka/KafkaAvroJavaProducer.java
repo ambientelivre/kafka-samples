@@ -52,6 +52,5 @@ public class KafkaAvroJavaProducer {
 
         producer.flush();
         producer.close();
-
     }
 }

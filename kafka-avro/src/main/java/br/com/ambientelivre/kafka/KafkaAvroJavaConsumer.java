@@ -35,7 +35,7 @@ public class KafkaAvroJavaConsumer{
 
         while (true){
             System.out.println("Polling");
-            ConsumerRecords<String, Customer> records = kafkaConsumer.poll(Duration.ofMillis(1000));
+            ConsumerRecords<String, Customer> records = kafkaConsumer.poll(Duration.ofMillis(100));
 
             for (ConsumerRecord<String, Customer> record : records){
                 Customer customer = record.value();

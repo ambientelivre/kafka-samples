@@ -4,8 +4,8 @@
   <artifactId>kafka-avro</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
- <properties>
-        <avro.version>1.8.2</avro.version>
+    <properties>
+        <avro.version>1.9.2</avro.version>
         <kafka.version>2.6.0</kafka.version>
         <confluent.version>6.0.1</confluent.version>
     </properties>
