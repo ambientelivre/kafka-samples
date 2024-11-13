@@ -1,8 +1,0 @@
-br/com/ambientelivre/spring/kafka/Greeting.class
-br/com/ambientelivre/spring/kafka/KafkaApplication$MessageProducer$1.class
-br/com/ambientelivre/spring/kafka/KafkaConsumerConfig.class
-br/com/ambientelivre/spring/kafka/KafkaTopicConfig.class
-br/com/ambientelivre/spring/kafka/KafkaApplication$MessageProducer.class
-br/com/ambientelivre/spring/kafka/KafkaApplication$MessageListener.class
-br/com/ambientelivre/spring/kafka/KafkaApplication.class
-br/com/ambientelivre/spring/kafka/KafkaProducerConfig.class
