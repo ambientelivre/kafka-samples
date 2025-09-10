@@ -1,16 +1,16 @@
 
 
 
-sudo docker run --name postgres -p 5000:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_HOST_AUTH_METHOD=trust debezium/postgres
+docker run --name postgres -p 5000:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_HOST_AUTH_METHOD=trust debezium/postgres
 
-sudo docker run -it --name zookeeper -p 2181:2181 -p 2888:2888 -p 3888:3888 --security-opt seccomp=unconfined debezium/zookeeper 
+docker run -it --rm --name zookeeper -p 2181:2181 -p 2888:2888 -p 3888:3888 --security-opt seccomp=unconfined quay.io/debezium/zookeeper:3.2
 
-sudo docker run -it --name kafka -p 9092:9092 --privileged --link zookeeper:zookeeper debezium/kafka
+docker run -it --rm --name kafka -p 9092:9092 --security-opt seccomp=unconfined --link zookeeper:zookeeper quay.io/debezium/kafka:3.2
 
-sudo docker run -it --name connect -p 8083:8083 --privileged -e GROUP_ID=1 -e CONFIG_STORAGE_TOPIC=my-connect-configs -e OFFSET_STORAGE_TOPIC=my-connect-offsets -e ADVERTISED_HOST_NAME=$(echo $DOCKER_HOST | cut -f3 -d'/' | cut -f1 -d':') --link zookeeper:zookeeper --link postgres:postgres --link kafka:kafka debezium/connect
+docker run -it --name connect -p 8083:8083 --privileged -e GROUP_ID=1 -e CONFIG_STORAGE_TOPIC=my-connect-configs -e OFFSET_STORAGE_TOPIC=my-connect-offsets -e ADVERTISED_HOST_NAME=$(echo $DOCKER_HOST | cut -f3 -d'/' | cut -f1 -d':') --link zookeeper:zookeeper --link postgres:postgres --link kafka:kafka quay.io/debezium/connect:3.2
 
 
-psql -h localhost -p 5000 -U postgres
+docker exec -it postgres psql -U postgres
 
 
 CREATE DATABASE inventory_db;
