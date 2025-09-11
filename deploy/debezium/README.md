@@ -52,7 +52,7 @@ INSERT INTO my_table (name) VALUES ('Maria');
 
 docker exec -it connect /kafka/bin/kafka-topics.sh --list --bootstrap-server kafka:9092
 
-## COnsuma os registros da fila
+## Consuma os registros da fila
 
 docker exec -it connect /kafka/bin/kafka-console-consumer.sh \
 --bootstrap-server kafka:9092 \
@@ -61,10 +61,10 @@ docker exec -it connect /kafka/bin/kafka-console-consumer.sh \
 
 
 
-# Caso precise pode dar restart no COnnector
+## Caso precise pode dar restart no COnnector
 curl -X POST localhost:8083/connectors/inventory_db-connector/restart
 
-# Crie uma nova tabela 
+## Crie uma nova tabela 
 CREATE TABLE my_table2(id SERIAL PRIMARY KEY, name VARCHAR);
 INSERT INTO my_table2(name) VALUES ('Marcio');
 
