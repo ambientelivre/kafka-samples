@@ -68,6 +68,14 @@ curl -X POST localhost:8083/connectors/inventory_db-connector/restart
 CREATE TABLE my_table2(id SERIAL PRIMARY KEY, name VARCHAR);
 INSERT INTO my_table2(name) VALUES ('Marcio');
 
+## Crie dados com transacao no DB
+
+BEGIN; 
+INSERT INTO my_table (name) VALUES ('Registro 1'); 
+INSERT INTO my_table (name) VALUES ('Registro 2'); 
+INSERT INTO my_table (name) VALUES ('Registro 3'); 
+COMMIT;
+
 
 
 
