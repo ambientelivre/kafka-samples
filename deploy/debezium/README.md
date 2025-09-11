@@ -107,12 +107,14 @@ curl -X POST -H "Accept:application/json" -H "Content-Type:application/json" loc
 
 
 ## Com Schema AVRO
+```sh
 docker run -it --rm --name schema-registry --security-opt seccomp=unconfined \
   --link zookeeper --link kafka:kafka \
   -e SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS=kafka:9092 \
   -e SCHEMA_REGISTRY_HOST_NAME=schema-registry \
-  -e SCHEMA_REGISTRY_LISTENERS=http://schema-registry:8081 \
+  -e SCHEMA_REGISTRY_LISTENERS=http://localhost:8081 \
   -p 8081:8081 confluentinc/cp-schema-registry
+```
 
 docker stop connect
 docker rm connet 
