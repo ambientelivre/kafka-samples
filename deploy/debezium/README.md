@@ -1,5 +1,4 @@
-
-
+# Debezium com PostgreSQL
 
 docker run --name postgres -p 5000:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_HOST_AUTH_METHOD=trust debezium/postgres:15-alpine
 
@@ -9,7 +8,7 @@ docker run -it --rm --name kafka -p 9092:9092 --security-opt seccomp=unconfined 
 
 docker run -it --name connect -p 8083:8083 --privileged -e GROUP_ID=1 -e CONFIG_STORAGE_TOPIC=my-connect-configs -e OFFSET_STORAGE_TOPIC=my-connect-offsets -e ADVERTISED_HOST_NAME=$(echo $DOCKER_HOST | cut -f3 -d'/' | cut -f1 -d':') --link zookeeper:zookeeper --link postgres:postgres --link kafka:kafka quay.io/debezium/connect:3.2
 
-# Crie um database e uma batela
+## Crie um database e uma batela
 docker exec -it postgres psql -U postgres
 
 CREATE DATABASE inventory_db;
@@ -18,7 +17,7 @@ CREATE DATABASE inventory_db;
 
 CREATE TABLE my_table(id SERIAL PRIMARY KEY, name VARCHAR);
 
-# Configure o Connector
+## Configure o Connector
 
 curl -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d '
 {
@@ -39,19 +38,26 @@ curl -X POST -H "Accept:application/json" -H "Content-Type:application/json" loc
 }
 }'
 
-# Consulte se o Connector esta rodando
+## Consulte se o Connector esta rodando
 curl -X GET localhost:8083/connectors/inventory_db-connector/status
 
-# No PostgreSQL
+## No PostgreSQL
 
 INSERT INTO my_table (name) VALUES ('Marcio');
 INSERT INTO my_table (name) VALUES ('Joao');
 INSERT INTO my_table (name) VALUES ('Maria');
 
 
-# liste as filas 
+## liste as filas 
 
 docker exec -it connect /kafka/bin/kafka-topics.sh --list --bootstrap-server kafka:9092
+
+## COnsuma os registros da fila
+
+docker exec -it connect /kafka/bin/kafka-console-consumer.sh \
+--bootstrap-server kafka:9092 \
+--topic test.public.my_table \
+--from-beginning
 
 
 
