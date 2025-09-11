@@ -102,7 +102,8 @@ curl -X PUT -H "Accept:application/json" -H "Content-Type:application/json" loca
 
 ## somente uma tabela
 
-curl -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d ' { "name": "read-connector", "config": { "connector.class": "io.debezium.connector.postgresql.PostgresConnector", "tasks.max": "1", "database.hostname": "postgres", "database.port": "5432", "database.user": "postgres", "database.password": "postgres", "database.dbname" : "read","database.server.name": "dbserver1", "table.include.list": "my_table", "database.history.kafka.bootstrap.servers": "kafka:9092", "topic.prefix": "dbserver1", "database.history.kafka.topic": "schema-changes.inventory" } }'
+curl -X PUT -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d ' { "name": "read-connector", "config": { "connector.class": "io.debezium.connector.postgresql.PostgresConnector", "tasks.max": "1", "database.hostname": "postgres", "database.port": "5432", "database.user": "postgres", "database.password": "postgres", "database.dbname" : "read","database.server.name": "dbserver1", "table.include.list": "my_table", "database.history.kafka.bootstrap.servers": "kafka:9092", "topic.prefix": "dbserver1", "database.history.kafka.topic": "schema-changes.inventory",
+ "slot.name": "debezium_read", } }'
 
 
 
