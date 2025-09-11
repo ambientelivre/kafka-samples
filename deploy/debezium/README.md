@@ -121,7 +121,7 @@ docker rm connet
 docker run -it --rm --name connect \
     --link zookeeper:zookeeper \
     --link kafka:kafka \
-    --link mysql:mysql \
+    --link postgres:postgres \
     --link schema-registry:schema-registry \
     --privileged \
     -e GROUP_ID=1 \
