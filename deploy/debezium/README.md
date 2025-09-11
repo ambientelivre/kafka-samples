@@ -114,6 +114,25 @@ docker run -it --rm --name schema-registry --security-opt seccomp=unconfined \
   -e SCHEMA_REGISTRY_LISTENERS=http://schema-registry:8081 \
   -p 8081:8081 confluentinc/cp-schema-registry
 
+docker stop connect
+docker rm connet 
+
+'''yaml
+docker run -it --rm --name connect \
+    --link zookeeper:zookeeper \
+    --link kafka:kafka \
+    --link mysql:mysql \
+    --link schema-registry:schema-registry \
+    --privileged \
+    -e GROUP_ID=1 \
+    -e CONFIG_STORAGE_TOPIC=my_connect_configs \
+    -e OFFSET_STORAGE_TOPIC=my_connect_offsets \
+    -e KEY_CONVERTER=io.confluent.connect.avro.AvroConverter \
+    -e VALUE_CONVERTER=io.confluent.connect.avro.AvroConverter \
+    -e CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081 \
+    -e CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL=http://schema-registry:8081 \
+    -p 8083:8083 quay.io/debezium/connect:3.2
+'''
 
 curl -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d ' { "name": "read-connector-avro", "config": { "connector.class": "io.debezium.connector.postgresql.PostgresConnector", "tasks.max": "1", "database.hostname": "postgres", "database.port": "5432", "database.user": "postgres", "database.password": "postgres", "database.dbname" : "read","database.server.name": "dbserver1", "table.include.list": "public.my_table3", "database.history.kafka.bootstrap.servers": "kafka:9092", "topic.prefix": "pgavro1", "database.history.kafka.topic": "schema-changes.inventory", "slot.name": "debezium_read_table", "key.converter":"io.confluent.connect.avro.AvroConverter","key.converter.schema.registry.url":"http://localhost:8081", "value.converter":"io.confluent.connect.avro.AvroConverter",
 "value.converter.schema.registry.url":"http://localhost:8081"} }'
