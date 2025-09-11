@@ -106,6 +106,16 @@ curl -X POST -H "Accept:application/json" -H "Content-Type:application/json" loc
  "slot.name": "debezium_read_table" } }'
 
 
+## Com Schema AVRO
+docker run -it --rm --name schema-registry --security-opt seccomp=unconfined \
+  --link zookeeper --link kafka:kafka \
+  -e SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS=kafka:9092 \
+  -e SCHEMA_REGISTRY_HOST_NAME=schema-registry \
+  -e SCHEMA_REGISTRY_LISTENERS=http://schema-registry:8081 \
+  -p 8081:8081 confluentinc/cp-schema-registry
 
+
+curl -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d ' { "name": "read-connector-avro", "config": { "connector.class": "io.debezium.connector.postgresql.PostgresConnector", "tasks.max": "1", "database.hostname": "postgres", "database.port": "5432", "database.user": "postgres", "database.password": "postgres", "database.dbname" : "read","database.server.name": "dbserver1", "table.include.list": "public.my_table3", "database.history.kafka.bootstrap.servers": "kafka:9092", "topic.prefix": "pgavro1", "database.history.kafka.topic": "schema-changes.inventory", "slot.name": "debezium_read_table", "key.converter":"io.confluent.connect.avro.AvroConverter","key.converter.schema.registry.url":"http://localhost:8081", "value.converter":"io.confluent.connect.avro.AvroConverter",
+"value.converter.schema.registry.url":"http://localhost:8081"} }'
 
 
