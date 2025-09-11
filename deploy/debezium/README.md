@@ -76,7 +76,25 @@ INSERT INTO my_table (name) VALUES ('Registro 2');
 INSERT INTO my_table (name) VALUES ('Registro 3'); 
 COMMIT;
 
+## adicione controle de transaçao
 
+curl -X PUT -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/inventory_db-connector/config -d '
+{
+"connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+"tasks.max": "1",
+"database.hostname": "postgres",
+"database.port": "5432",
+"database.user": "postgres",
+"database.password": "postgres",
+"database.dbname" : "inventory_db",
+"database.server.name": "dbserver1",
+"database.whitelist": "inventory_db",
+"database.history.kafka.bootstrap.servers": "kafka:9092",
+"topic.prefix": "test",
+"database.history.kafka.topic": "schema-changes.inventory",
+"transaction.metadata.kafka.topic": "transactions_metadata"
+}
+'
 
 
 
