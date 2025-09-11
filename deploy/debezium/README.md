@@ -76,6 +76,10 @@ INSERT INTO my_table (name) VALUES ('Registro 2');
 INSERT INTO my_table (name) VALUES ('Registro 3'); 
 COMMIT;
 
+
+WAL - Write-Ahead Log
+ALTER TABLE my_table REPLICA IDENTITY FULL;
+
 ## adicione controle de transaçao
 
 curl -X PUT -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/inventory_db-connector/config -d '
