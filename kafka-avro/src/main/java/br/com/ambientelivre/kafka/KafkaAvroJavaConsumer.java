@@ -18,7 +18,7 @@ public class KafkaAvroJavaConsumer{
         // normal consumer
         properties.setProperty("bootstrap.servers","localhost:9092");
         properties.put("group.id", "customer-consumer-group-v1");
-        properties.put("auto.commit.enable", "false");
+        properties.put("enable.auto.commit", "false");
         properties.put("auto.offset.reset", "earliest");
 
         // avro part (deserializer)
@@ -41,7 +41,7 @@ public class KafkaAvroJavaConsumer{
                 Customer customer = record.value();
                 System.out.println(customer);
             }
-
+            // comente caso queira nao confirmar a entrega da mensagem
             kafkaConsumer.commitSync();
         }
     }
